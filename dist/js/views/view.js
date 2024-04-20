@@ -1,8 +1,23 @@
 export class View {
-    constructor(selector) {
-        this.elemento = document.querySelector(selector);
+    constructor(selector, escapar) {
+        this.escapar = false;
+        if (escapar) {
+            this.escapar = escapar;
+        }
+        const elemento = document.querySelector(selector);
+        if (elemento) {
+            this.elemento = elemento;
+        }
+        else {
+            throw Error(`Seletor: ${selector} não existe.`);
+        }
     }
     update(model) {
-        this.elemento.innerHTML = this.template(model);
+        let template = this.template(model);
+        if (this.escapar) {
+            template = template.replace(/<script>[\s\S]*?<script>/, '');
+        }
+        ;
+        this.elemento.innerHTML = template;
     }
 }
