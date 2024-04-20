@@ -12,9 +12,10 @@ export class Negociacao {
         return data;
     }
     static criaDe(dataString, quantidadeString, valorString) {
-        const data = new Date(dataString.replace(/-/g, ','));
+        const exp = /-/g;
+        const date = new Date(dataString.replace(exp, ','));
         const quantidade = parseInt(quantidadeString);
         const valor = parseFloat(valorString);
-        return new Negociacao(data, quantidade, valor);
+        return new Negociacao(date, quantidade, valor);
     }
 }
